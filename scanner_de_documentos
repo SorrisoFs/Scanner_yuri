@@ -1,0 +1,20 @@
+import cv2
+import matplotlib.pyplot as plt
+
+img_original = cv2.imread('caminho_da_imagem')
+img_gray = cv2.cvtColor(img_original, cv2.COLOR_BGR2GRAY)
+blu = cv2.medianBlur(img_gray,5)
+documento_limpo = cv2.adaptiveThreshold(blu,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+axes[0].imshow(cv2.cvtColor(img_original, cv2.COLOR_BGR2RGB))
+axes[0].set_title("1. Foto Original (Com Sombras)")
+axes[0].axis('off')
+
+axes[1].imshow(documento_limpo, cmap='gray')
+axes[1].set_title("2. Resultado (Documento Escaneado)")
+axes[1].axis('off')
+
+plt.tight_layout()
+plt.show()
